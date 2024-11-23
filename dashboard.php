@@ -214,8 +214,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reserve_ticket"])) {
 
     <!-- Admin panel for adding a new train schedule -->
     <?php if ($is_admin == 1): ?>
-        <h2 style="font-size:20px;">Админ панел: Добавяне на ново разписание на влак</h2>
-        <form action="" method="POST">
+        <div class="card">
+                    <h2 class="text-secondary" style="font-size:20px;">Админ панел: Добавяне на ново разписание на влак</h2>
+        <form class="form" action="" method="POST">
             <label for="train_number">Номер на влака:</label>
             <input type="text" id="train_number" name="train_number" required><br>
 
@@ -233,10 +234,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reserve_ticket"])) {
 
             <label for="ticket_price">Цена на билет:</label>
             <input type="number" id="ticket_price" name="ticket_price" required><br>
-
-            <input type="submit" name="create_schedule" value="Добави разписание">
+            <input style='margin-top:5px;' class='btn btn-success' type="submit" name="create_schedule" value="Добави разписание">
         </form>
     <?php endif; ?>
+        </div>
 
     <!-- Modal for ticket reservation -->
     <div id="ticketModal" class="modal">
