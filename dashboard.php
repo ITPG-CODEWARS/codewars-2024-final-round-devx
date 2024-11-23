@@ -98,46 +98,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reserve_ticket"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Табло</title>
     <link rel="stylesheet" href="assets/dashboard.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <!-- Bootstrap 5 CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        /* Style for the table */
-        .fixed_headers {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .fixed_headers th, .fixed_headers td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        /* Fixed header and scrollable body */
-        .table-wrapper {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .fixed_headers thead th {
-            position: sticky;
-            top: 0;
-            background-color: #0d6efd;
-            z-index: 2;
-        }
-
-        /* Responsive table design */
-        @media (max-width: 600px) {
-            .fixed_headers, .table-wrapper {
-                width: 100%;
-                display: block;
-                overflow-x: auto;
-            }
-        }
-
-        /* Style for the modal */
+        /* Стил за модалния прозорец */
         .modal {
             display: none;
             position: fixed;
@@ -169,54 +131,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reserve_ticket"])) {
             text-decoration: none;
             cursor: pointer;
         }
-
     </style>
 </head>
 <body>
-    <br>
-    <h1 style="font-size: 20px; text-align: center;">Приятно пътуване, <?php echo htmlspecialchars($username); ?>!</h1>
-    <br>
-    <!-- Table with fixed headers and scrollable body -->
-    <div class="table-wrapper">
-        <table class="fixed_headers">
-            <thead>
-                <tr>
-                    <th style="color: white;">Номер на влака</th>
-                    <th style="color: white;">От</th>
-                    <th style="color: white;">До</th>
-                    <th style="color: white;">Час на пристигане</th>
-                    <th style="color: white;">Час на тръгване</th>
-                    <th style="color: white;">Цена на билет (лв.)</th>
-                    <th style="color: white;">Резервирай билет</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . htmlspecialchars($row['train_number']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['from']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['destination']) . "</td>";
-                        echo "<td>" . htmlspecialchars(date('H:i', strtotime($row['arrival_time']))) . "</td>";
-                        echo "<td>" . htmlspecialchars(date('H:i', strtotime($row['start_time']))) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['ticket_price']) . "</td>";
-                        echo "<td><button class='btn btn-info' onclick='openModal(\"" . htmlspecialchars($row['train_number']) . "\", \"" . htmlspecialchars($row['ticket_price']) . "\")'>Резервирай</button></td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='7'>Няма налични разписания на влакове.</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
+    <h1>Приятно пътуване, <?php echo htmlspecialchars($username); ?>!</h1>
 
-    <!-- Admin panel for adding a new train schedule -->
+    <!-- Таблица с разписания на влакове -->
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Номер на влака</th>
+                <th>От</th>
+                <th>До</th>
+                <th>Час на пристигане</th>
+                <th>Час на тръгване</th>
+                <th>Цена на билет</th>
+                <th>Резервирай билет</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($row['train_number']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['from']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['destination']) . "</td>";
+                    echo "<td>" . htmlspecialchars(date('H:i', strtotime($row['arrival_time']))) . "</td>";
+                    echo "<td>" . htmlspecialchars(date('H:i', strtotime($row['start_time']))) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['ticket_price']) . "</td>";
+                    echo "<td><button onclick='openModal(\"" . htmlspecialchars($row['train_number']) . "\", \"" . htmlspecialchars($row['ticket_price']) . "\")'>Резервирай билет</button></td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='7'>Няма налични разписания на влакове.</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+
+    <!-- Админ панел за добавяне на ново разписание на влакове -->
     <?php if ($is_admin == 1): ?>
-        <div class="card">
-                    <h2 class="text-secondary" style="font-size:20px;">Админ панел: Добавяне на ново разписание на влак</h2>
-        <form class="form" action="" method="POST">
+        <h2>Админ панел: Добавяне на ново разписание на влак</h2>
+        <form action="" method="POST">
             <label for="train_number">Номер на влака:</label>
             <input type="text" id="train_number" name="train_number" required><br>
 
@@ -234,12 +191,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reserve_ticket"])) {
 
             <label for="ticket_price">Цена на билет:</label>
             <input type="number" id="ticket_price" name="ticket_price" required><br>
-            <input style='margin-top:5px;' class='btn btn-success' type="submit" name="create_schedule" value="Добави разписание">
+
+            <input type="submit" name="create_schedule" value="Добави разписание">
         </form>
     <?php endif; ?>
-        </div>
 
-    <!-- Modal for ticket reservation -->
+    <!-- Модален прозорец за резервиране на билет -->
     <div id="ticketModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -264,7 +221,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reserve_ticket"])) {
             document.getElementById("ticketModal").style.display = "none";
         }
 
-        // Display messages from PHP in JavaScript alert
+        // Показване на съобщения от PHP в JavaScript alert
         <?php if (!empty($error_message)): ?>
             alert("<?php echo addslashes($error_message); ?>");
         <?php endif; ?>

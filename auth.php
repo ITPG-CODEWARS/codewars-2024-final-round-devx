@@ -125,7 +125,7 @@ $conn->close();
             <div class="panel left-panel">
                 <div class="content">
                     <h3>Нов тук?</h3>
-                    <br>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio minus natus est.</p>
                     <button class="btn transparent" id="sign-up-btn">Регистрация</button>
                 </div>
                 <img src="assets/images/log.svg" class="image" alt="">
@@ -134,7 +134,7 @@ $conn->close();
             <div class="panel right-panel">
                 <div class="content">
                     <h3>Един от нас?</h3>
-                    <br>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio minus natus est.</p>
                     <button class="btn transparent" id="sign-in-btn">Вход</button>
                 </div>
                 <img src="assets/images/register.svg" class="image" alt="">

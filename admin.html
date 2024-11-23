@@ -1,44 +1,3 @@
-<?php
-session_start();
-include 'config.php';
-
-// Check if user is authenticated and is admin
-if (!isset($_SESSION['user_id']) ) {
-    header("Location: dashboard.php"); // Redirect to dashboard if not admin
-    exit();
-}
-
-// Initialize message variables
-$error_message = '';
-$success_message = '';
-
-// Handle train schedule creation
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["create_schedule"])) {
-    $train_number = $_POST["train_number"];
-    $from = $_POST["from"];
-    $destination = $_POST["destination"];
-    $arrival_time = $_POST["arrival_time"];
-    $start_time = $_POST["start_time"];
-    $ticket_price = $_POST["ticket_price"];
-
-    // Ensure time format is HH:MM (append :00 for seconds)
-    $arrival_time = $arrival_time . ":00";
-    $start_time = $start_time . ":00";
-
-    // Insert the new train schedule into the database
-    $insertQuery = "INSERT INTO train_schedule (train_number, `from`, destination, arrival_time, start_time, ticket_price) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($insertQuery);
-    $stmt->bind_param("ssssss", $train_number, $from, $destination, $arrival_time, $start_time, $ticket_price);
-
-    if ($stmt->execute()) {
-        $success_message = "Train schedule added successfully!";
-    } else {
-        $error_message = "Failed to add train schedule. Please try again.";
-    }
-    $stmt->close();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -188,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["create_schedule"])) {
                             <form>
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="train_number" class="form-label">Train Name</label>
+                                        <label for="trainName" class="form-label">Train Name</label>
                                         <input type="text" class="form-control" id="trainName">
                                     </div>
                                     <div class="col-6">
@@ -212,7 +171,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["create_schedule"])) {
                                         <input type="number" class="form-control" id="frequency">
                                     </div>
                                 </div>
-                                <input type="submit" name="create_schedule" value="Добави разписание">
+                                <button type="submit" class="btn btn-primary">Add Train</button>
                             </form>
                         </div>
                     </div>
