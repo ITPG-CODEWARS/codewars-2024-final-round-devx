@@ -25,13 +25,10 @@
                             <a class="nav-link" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="contact.html">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="register.html">Sign Up</a>
+                            <a class="nav-link active" href="login.html">Sign Up</a>
                         </li>
                     </ul>
                 </div>
@@ -49,14 +46,21 @@
           <p class="contacts-text">Address: example address</p>
           <style>
               .contacts-container {
-                  margin-top: 6rem;
+                  
                   display: flex;
                   align-items: center;
                   flex-direction: column;
+                  background-color: rgb(247, 247, 247);
+                  max-width: 800px;
               }
               .contacts-text {
                   font-size: 1.2rem;
                   color: #333;
+              }
+              .contacts-text:hover {
+                  color: #007bff;
+                  transform: scale(1.05);
+                  transition: all 0.3s ease;
               }
               h1 {
                   margin-bottom: 2rem;
