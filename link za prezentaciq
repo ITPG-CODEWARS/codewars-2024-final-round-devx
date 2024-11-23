@@ -1,1 +1,175 @@
 https://docs.google.com/document/d/1tXt-Y3nGd6VWH-eW7FfsJUWy5fR1PvfuKTZuaysi5WM/edit?usp=sharing
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+        <!-- Bootstrap 5 CDN -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    
+</head> 
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Custom CSS file -->
+  <link rel="stylesheet" href="assets/style.css">
+
+  <!-- Firebase Reference -->
+  <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+
+  <!-- Moment.js Reference! -->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+  <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+<body>
+
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container"> <!-- Use container to limit width -->
+            <!-- Project Name -->
+            <a class="navbar-brand" href="#">Project Name</a>
+            
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto"> <!-- Push links to the right -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="register.html">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>  
+  <!-- Div containing the entire page -->
+  <div class="container bg-light my-4 py-1" style="border-radius: 10px;">
+
+    <!-- Header for page -->
+    <div class="jumbotron bg-light" style="border-top-right-radius: 10px; border-top-left-radius: 10px;">
+      <div class="row">
+        <div class="col-md-12">
+          <img src="assets/images/gothamcity.png" alt="Gotham City" class="cityPic">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-center"><strong>TrainPlanner</strong></h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="text-center">The most up-to-date train information and scheduler for the GCTA.</h3>
+        </div>
+      </div>
+      <!-- New row for the button -->
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <a href="auth.php" class="btn btn-warning mb-3" style="background-color: orange; border-color: orange; color: white; font-weight: bold; margin-top: 15px;">
+            Go to Authentication
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contains both tables on page -->
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <!-- Current scheduled trains -->
+        <div class="panel panel-primary">
+
+          <!-- Current train table header -->
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Current Train Schedule</strong></h3>
+          </div>
+
+          <!-- Current train table content -->
+          <div class="panel-body mt-3 table-bordered">
+            <table class="table table-hover" id="train-table">
+              <thead>
+                <tr>
+                  <th>Train Name</th>
+                  <th>Destination</th>
+                  <th>Frequency (minutes)</th>
+                  <th>Next Arrival</th>
+                  <th>Minutes Away</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <!-- Add a new train -->
+        <div class="panel panel-primary">
+
+          <!-- Add a new train table header -->
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Add a Train</strong></h3>
+          </div>
+
+          <!-- Add a new train table content -->
+          <div class="panel-body">
+
+            <!-- Form that takes the user input for new trains -->
+            <form>
+              <div class="form-group">
+                <label>Train Name</label>
+                <input class="form-control" id="train-name-input" type="text">
+              </div>
+              <div class="form-group">
+                <label>Destination</label>
+                <input class="form-control" id="destination-input" type="text">
+              </div>
+              <div class="form-group">
+                <label>First Train Time (HH:mm - military time)</label>
+                <input class="form-control" id="first-train-input" type="text">
+              </div>
+              <div class="form-group">
+                <label>Frequency (minutes)</label>
+                <input class="form-control" id="frequency-input" type="text">
+              </div>
+              <button class="btn mt-3" id="add-train-btn" type="submit">Submit</button>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Link to the external JavaScript -->
+  <script type="text/javascript" src="assets/app.js"></script>
+
+</body>
+
+
+</html>
