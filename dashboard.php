@@ -20,8 +20,12 @@ $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 $is_admin = $user['is_admin'] ?? 0;
 
+// Initialize message variables
+$error_message = '';
+$success_message = '';
+
 // Fetch train schedules from the database
-$query = "SELECT train_number, `from`, destination, arrival_time, start_time FROM train_schedule";
+$query = "SELECT train_number, `from`, destination, arrival_time, start_time, ticket_price FROM train_schedule";
 $result = $conn->query($query);
 
 // Handle train schedule creation
@@ -30,16 +34,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["create_schedule"]) && 
     $from = $_POST["from"];
     $destination = $_POST["destination"];
     $arrival_time = $_POST["arrival_time"];
-    $start_time = $_POST["start_time"]; // New field for start time
+    $start_time = $_POST["start_time"];
+    $ticket_price = $_POST["ticket_price"];
 
     // Ensure time format is HH:MM (append :00 for seconds)
     $arrival_time = $arrival_time . ":00";
     $start_time = $start_time . ":00";
 
     // Insert the new train schedule into the database
-    $insertQuery = "INSERT INTO train_schedule (train_number, `from`, destination, arrival_time, start_time) VALUES (?, ?, ?, ?, ?)";
+    $insertQuery = "INSERT INTO train_schedule (train_number, `from`, destination, arrival_time, start_time, ticket_price) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($insertQuery);
-    $stmt->bind_param("sssss", $train_number, $from, $destination, $arrival_time, $start_time);
+    $stmt->bind_param("ssssss", $train_number, $from, $destination, $arrival_time, $start_time, $ticket_price);
 
     if ($stmt->execute()) {
         // Redirect to the same page after success to avoid form resubmission
@@ -50,6 +55,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["create_schedule"]) && 
     }
     $stmt->close();
 }
+
+// Handle ticket reservation
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reserve_ticket"])) {
+    $train_number = $_POST["train_number"];
+    $seat_number = $_POST["seat_number"];
+
+    // Check if the seat number already exists
+    $checkQuery = "SELECT * FROM ticket_reservations WHERE train_number = ? AND seat_number = ?";
+    $stmt = $conn->prepare($checkQuery);
+    $stmt->bind_param("si", $train_number, $seat_number);
+    $stmt->execute();
+    $checkResult = $stmt->get_result();
+
+    if ($checkResult->num_rows > 0) {
+        $error_message = "This seat has already been reserved.";
+    } else {
+        // Get the current timestamp
+        $reservation_timestamp = date("Y-m-d H:i:s");
+
+        // Insert the reservation into the database with the current timestamp
+        $insertQuery = "INSERT INTO ticket_reservations (train_number, seat_number, reserved_by, reservation_timestamp) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($insertQuery);
+        $stmt->bind_param("siss", $train_number, $seat_number, $username, $reservation_timestamp);
+
+        if ($stmt->execute()) {
+            // Display custom success message
+            $success_message = "Успешно резервирахте билет с номер №" . htmlspecialchars($seat_number) . ". Моля потвърдете билета на касата на БДЖ. Лек път!";
+        } else {
+            $error_message = "Failed to reserve the ticket. Please try again.";
+        }
+    }
+    $stmt->close();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +97,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["create_schedule"]) && 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="assets/dashboard.css"> <!-- Optional: Custom CSS file for styling -->
+    <link rel="stylesheet" href="assets/dashboard.css">
+    <style>
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>Приятно пътуване, <?php echo htmlspecialchars($username); ?>!</h1>
@@ -72,6 +145,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["create_schedule"]) && 
                 <th>Destination</th>
                 <th>Arrival Time</th>
                 <th>Start Time</th>
+                <th>Ticket Price</th>
+                <th>Reserve Ticket</th>
             </tr>
         </thead>
         <tbody>
@@ -82,12 +157,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["create_schedule"]) && 
                     echo "<td>" . htmlspecialchars($row['train_number']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['from']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['destination']) . "</td>";
-                    echo "<td>" . htmlspecialchars(date('H:i', strtotime($row['arrival_time']))) . "</td>"; // Format time to HH:MM
-                    echo "<td>" . htmlspecialchars(date('H:i', strtotime($row['start_time']))) . "</td>"; // Format time to HH:MM
+                    echo "<td>" . htmlspecialchars(date('H:i', strtotime($row['arrival_time']))) . "</td>";
+                    echo "<td>" . htmlspecialchars(date('H:i', strtotime($row['start_time']))) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['ticket_price']) . "</td>";
+                    echo "<td><button onclick='openModal(\"" . htmlspecialchars($row['train_number']) . "\", \"" . htmlspecialchars($row['ticket_price']) . "\")'>Резервирай билет</button></td>";
                     echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='5'>No train schedules available.</td></tr>";
+                echo "<tr><td colspan='7'>No train schedules available.</td></tr>";
             }
             ?>
         </tbody>
@@ -112,18 +189,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["create_schedule"]) && 
             <label for="start_time">Start Time:</label>
             <input type="text" id="start_time" name="start_time" placeholder="HH:MM" required><br>
 
+            <label for="ticket_price">Ticket Price:</label>
+            <input type="number" id="ticket_price" name="ticket_price" required><br>
+
             <input type="submit" name="create_schedule" value="Add Schedule">
         </form>
-        <?php if (isset($error_message)): ?>
-            <p style="color: red;"><?php echo $error_message; ?></p>
-        <?php endif; ?>
     <?php endif; ?>
 
-    <a href="logout.php">Logout</a> <!-- Logout link for user to end session -->
+    <!-- Modal for ticket reservation -->
+    <div id="ticketModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Резервиране на билет</h2>
+            <form action="" method="POST">
+                <input type="hidden" id="modal_train_number" name="train_number">
+                <label for="seat_number">Seat Number:</label>
+                <input type="number" id="seat_number" name="seat_number" min="1" max="100" required><br>
+                <p>Местата са общо 100, изберете някое от тях.</p>
+                <input type="submit" name="reserve_ticket" value="Reserve Ticket">
+            </form>
+        </div>
+    </div>
 
-    <?php
-    // Close database connection
-    $conn->close();
-    ?>
+    <script>
+        function openModal(trainNumber, ticketPrice) {
+            document.getElementById("ticketModal").style.display = "block";
+            document.getElementById("modal_train_number").value = trainNumber;
+        }
+
+        function closeModal() {
+            document.getElementById("ticketModal").style.display = "none";
+        }
+
+        // Display PHP messages in JavaScript alert
+        <?php if (!empty($error_message)): ?>
+            alert("<?php echo addslashes($error_message); ?>");
+        <?php endif; ?>
+
+        <?php if (!empty($success_message)): ?>
+            alert("<?php echo addslashes($success_message); ?>");
+        <?php endif; ?>
+    </script>
+
 </body>
 </html>
