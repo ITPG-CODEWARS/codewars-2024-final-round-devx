@@ -49,7 +49,7 @@
                 <!-- Register Form -->
                 <div id="registerForm">
                     <h2 class="text-center">Register</h2>
-                    <form id="registerFormContent">
+                    <form id="registerFormContent" action="auth.php">
                         <div class="mb-3">
                             <label for="registerUsername" class="form-label">Username</label>
                             <input type="text" class="form-control" id="registerUsername" placeholder="Username">
@@ -75,14 +75,14 @@
                 <!-- Login Form -->
                 <div id="loginForm" style="display: none;">
                     <h2 class="text-center">Login</h2>
-                    <form id="loginFormContent">
+                    <form id="loginFormContent" action="auth.php">
                         <div class="mb-3">
-                            <label for="loginEmail" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com">
+                            <label for="loginEmail" class="form-label">Username / Email address</label>
+                            <input type="email" class="form-control" id="username" id="email" placeholder="Username or Email">
                         </div>
                         <div class="mb-3">
                             <label for="loginPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="loginPassword" placeholder="Password">
+                            <input type="password" class="form-control" id="password" placeholder="Password">
                         </div>
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="remember">
