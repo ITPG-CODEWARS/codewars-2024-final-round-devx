@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Начална Страница</title>
     <link rel="stylesheet" href="styles.css">
         <!-- Bootstrap 5 CDN -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -14,7 +14,7 @@
   <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-  <!-- Custom CSS file -->
+  <!-- Custom CSS файл -->
   <link rel="stylesheet" href="assets/style.css">
 
   <!-- Firebase Reference -->
@@ -32,49 +32,65 @@
 
 <body>
 
-  <!-- Navbar -->
+  <!-- Навигационна лента -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container"> <!-- Use container to limit width -->
-          <!-- Project Name -->
-          <a class="navbar-brand" href="index.html">Train Planner</a>
+      <div class="container"> <!-- Използване на контейнер за ограничаване на ширината -->
+          <!-- Име на проекта -->
+          <a class="navbar-brand" href="index.html">TrainPlanner</a>
           
-          <!-- Mobile Toggle Button -->
+          <!-- Кнопка за мобилно меню -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
           
-          <!-- Navigation Links -->
+          <!-- Навигационни линкове -->
           <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ms-auto"> <!-- Push links to the right -->
+              <ul class="navbar-nav ms-auto"> <!-- Преместване на линковете в дясно -->
                   <li class="nav-item">
                       <a class="nav-link active" href="index.html">Начало</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="contact.html">Контакти</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="auth.php">Sign Up</a>
+                      <a class="nav-link" href="contact.html">Контакт</a>
                   </li>
               </ul>
           </div>
       </div>
   </nav>  
 
-  <main class="hero">
-    <section class="intro">
-      <h2>Бъдещето на пътуванията започва с точност.</h2>
-      <p>
-        Нашата платформа за графици на влакове предлага бърза и точна информация, за да планирате пътуванията си лесно и удобно. Резервирайте билети и пътувайте безпроблемно!
-      </p>
-      <a href="auth.php" class="button">Започни Пътешествието!</a>
-    </section>
-  </main>
+  <!-- Div containing the entire page -->
+  <div class="container card my-3">
 
-  <footer class="footer">
-    <p>&copy; 2024 Train Planner. All rights reserved.</p>
-  </footer>
+    <!-- Header for page -->
+    <div class="jumbotron">
+      <div class="row">
+        <div class="col-md-12">
+          <img src="assets/images/gothamcity.png" alt="Gotham City" class="cityPic">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-center"><strong>TrainPlanner</strong></h1>
+          <link rel="stylesheet" href="styles.css">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="text-center">The most up-to-date train information and scheduler for the GCTA.</h3>
+        </div>
+      </div>
+      <!-- New row for the button -->
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <a href="auth.php" class="btn btn-warning mb-3" style="background-color: rgb(0, 140, 255); color: white; font-weight: bold; margin-top: 15px; border-radius: 18px;">
+            Go to Authentication
+          </a>
+        </div>
+      </div>
+    </div>
 
-  <!-- Link to the external JavaScript -->
+  </div>
+
+  <!-- Линк към външен JavaScript -->
   <script type="text/javascript" src="assets/app.js"></script>
   <style>
 nav {
