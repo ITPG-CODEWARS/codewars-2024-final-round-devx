@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Train Scheduler</title>
-    
+
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -16,184 +16,272 @@
         body {
             background-color: #f8f9fa;
         }
-        .sidebar {
-            height: 100vh;
-            background-color: #343a40;
-            color: white;
-            padding-top: 20px;
+
+        .card-columns {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 20px;
+            height: 320px;
         }
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 10px;
+
+        .card-columns .card {
+            flex: 1;
+            margin-right: 20px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         }
-        .sidebar a:hover {
+
+        .card-columns .card:last-child {
+            margin-right: 0;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            height: 100%;
+        }
+
+        .card-header {
             background-color: #495057;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-body {
+            background-color: #f8f9fa;
+        }
+
+        .message-chat-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        #send-messages {
+            flex: 1;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        #send-messages h2 {
+            font-size: 18px;
+        }
+
+        #send-messages form {
+            max-width: 400px;
+        }
+
+        #chat-system {
+            flex: 2;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #chat-system h2 {
+            font-size: 22px;
+        }
+
+        .chat-box {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f1f1f1;
+        }
+
+        .chat-box .message {
+            padding: 8px;
+            margin: 5px 0;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+
+        .chat-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .send-btn {
+            margin-top: 10px;
+            display: block;
+            width: 100%;
         }
     </style>
 </head>
 
 <body>
+
+    <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container"> <!-- Use container to limit width -->
+        <!-- Project Name -->
+        <a class="navbar-brand" href="index.html">Project Name</a>
+        
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Navigation Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto"> <!-- Push links to the right -->
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+                <li class="nav-item fw-bold">
+                    <a class="nav-link" href="admin.html">Admin Panel</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>  
+
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
-            <nav class="col-md-3 col-lg-2 d-md-block sidebar">
-                <h4 class="text-center">Admin Panel</h4>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#manage-trains">Manage Trains</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#manage-stops">Manage Train Stops</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#manage-tracks">Manage Rail Tracks</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#manage-users">Manage Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#send-messages">Send Messages</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#chat-system">Worker Chat</a>
-                    </li>
-                </ul>
-            </nav>
-
-            <!-- Main Content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <main class="col-12">
                 <div class="pt-3">
-                    <!-- Manage Trains -->
-                    <section id="manage-trains">
-                        <h2>Manage Trains</h2>
-                        <form class="mb-4">
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="trainName" class="form-label">Train Name</label>
-                                    <input type="text" class="form-control" id="trainName" placeholder="Enter train name">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="destination" class="form-label">Destination</label>
-                                    <select class="form-control" id="destination">
-                                        <option value="Sofia">Sofia</option>
-                                        <option value="Plovdiv">Plovdiv</option>
-                                        <option value="Varna">Varna</option>
-                                        <option value="Burgas">Burgas</option>
-                                        <option value="Ruse">Ruse</option>
-                                        <option value="Stara Zagora">Stara Zagora</option>
-                                        <option value="Pleven">Pleven</option>
-                                        <option value="Sliven">Sliven</option>
-                                        <option value="Dobrich">Dobrich</option>
-                                        <option value="Shumen">Shumen</option>
-                                    </select>
-                                </div>
+                    <!-- Cards in one row for Manage Trains, Manage Stops, Manage Rail Tracks -->
+                    <section class="card-columns">
+                        <!-- Manage Trains -->
+                        <div id="manage-trains" class="card">
+                            <div class="card-header">
+                                <h5>Create New Train</h5>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="firstTrainTime" class="form-label">First Train Time</label>
-                                    <input type="time" class="form-control" id="firstTrainTime">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="frequency" class="form-label">Frequency (minutes)</label>
-                                    <input type="number" class="form-control" id="frequency" placeholder="Enter frequency">
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Add Train</button>
-                        </form>
-                    </section>
-
-                    <!-- Manage Train Stops -->
-                    <section id="manage-stops">
-                        <h2>Manage Train Stops</h2>
-                        <form class="mb-4">
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="stopName" class="form-label">Stop Name</label>
-                                    <select class="form-control" id="stopName">
-                                        <option value="Sofia">Sofia</option>
-                                        <option value="Plovdiv">Plovdiv</option>
-                                        <option value="Varna">Varna</option>
-                                        <option value="Burgas">Burgas</option>
-                                        <option value="Ruse">Ruse</option>
-                                        <option value="Stara Zagora">Stara Zagora</option>
-                                        <option value="Pleven">Pleven</option>
-                                        <option value="Sliven">Sliven</option>
-                                        <option value="Dobrich">Dobrich</option>
-                                        <option value="Shumen">Shumen</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="newStopName" class="form-label">Add New Stop</label>
-                                    <input type="text" class="form-control" id="newStopName" placeholder="Enter new stop name">
-                                    <button type="button" class="btn btn-secondary mt-2">Add Stop</button>
-                                </div>
-                            </div>
-                        </form>
-                    </section>
-
-                    <!-- Manage Rail Tracks -->
-                    <section id="manage-tracks">
-                        <h2>Manage Rail Tracks</h2>
-                        <form class="mb-4">
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="trackName" class="form-label">Track Name</label>
-                                    <input type="text" class="form-control" id="trackName" placeholder="Enter track name">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="trackLength" class="form-label">Length (km)</label>
-                                    <input type="number" class="form-control" id="trackLength" placeholder="Enter length">
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Add Track</button>
-                        </form>
-                    </section>
-
-                    <!-- Manage Users -->
-                    <section id="manage-users">
-                        <h2>Manage Users</h2>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>User ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- User rows go here dynamically -->
-                            </tbody>
-                        </table>
-                    </section>
-
-                    <!-- Send Messages -->
-                    <section id="send-messages">
-                        <h2>Send Messages to Users</h2>
-                        <form>
-                            <div class="mb-3">
-                                <label for="messageContent" class="form-label">Message Content</label>
-                                <textarea class="form-control" id="messageContent" rows="4"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Send Message</button>
-                        </form>
-                    </section>
-
-                    <!-- Worker Chat System -->
-                    <section id="chat-system">
-                        <h2>Worker Chat System</h2>
-                        <div class="card">
                             <div class="card-body">
-                                <p>Chat system is under construction. Stay tuned!</p>
+                                <form class="mb-4">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="trainName" class="form-label">Train Name</label>
+                                            <input type="text" class="form-control" id="trainName" placeholder="Enter train name">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="destination" class="form-label">Destination</label>
+                                            <select class="form-control" id="destination">
+                                                <option value="Sofia">Sofia</option>
+                                                <option value="Plovdiv">Plovdiv</option>
+                                                <option value="Varna">Varna</option>
+                                                <option value="Burgas">Burgas</option>
+                                                <option value="Ruse">Ruse</option>
+                                                <option value="Stara Zagora">Stara Zagora</option>
+                                                <option value="Pleven">Pleven</option>
+                                                <option value="Sliven">Sliven</option>
+                                                <option value="Dobrich">Dobrich</option>
+                                                <option value="Shumen">Shumen</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="firstTrainTime" class="form-label">First Train Time</label>
+                                            <input type="time" class="form-control" id="firstTrainTime">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="frequency" class="form-label">Frequency (minutes)</label>
+                                            <input type="number" class="form-control" id="frequency" placeholder="Enter frequency">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Add Train</button>
+                                </form>
                             </div>
+                        </div>
+
+                        <!-- Manage Train Stops -->
+                        <div id="manage-stops" class="card">
+                            <div class="card-header">
+                                <h5>Create New Stop</h5>
+                            </div>
+                            <div class="card-body">
+                                <form class="mb-4">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="stopName" class="form-label">Stop Name</label>
+                                            <select class="form-control" id="stopName">
+                                                <option value="Sofia">Sofia</option>
+                                                <option value="Plovdiv">Plovdiv</option>
+                                                <option value="Varna">Varna</option>
+                                                <option value="Burgas">Burgas</option>
+                                                <option value="Ruse">Ruse</option>
+                                                <option value="Stara Zagora">Stara Zagora</option>
+                                                <option value="Pleven">Pleven</option>
+                                                <option value="Sliven">Sliven</option>
+                                                <option value="Dobrich">Dobrich</option>
+                                                <option value="Shumen">Shumen</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="newStopName" class="form-label">Add New Stop</label>
+                                            <input type="text" class="form-control" id="newStopName" placeholder="Enter new stop name">
+                                            <button type="button" class="btn btn-secondary mt-2">Add Stop</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Manage Rail Tracks -->
+                        <div id="manage-tracks" class="card">
+                            <div class="card-header">
+                                <h5>Create New Track</h5>
+                            </div>
+                            <div class="card-body">
+                                <form class="mb-4">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="trackName" class="form-label">Track Name</label>
+                                            <input type="text" class="form-control" id="trackName" placeholder="Enter track name">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="trackLength" class="form-label">Length (km)</label>
+                                            <input type="number" class="form-control" id="trackLength" placeholder="Enter length">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Add Track</button>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Flexbox layout for Send Messages and Worker Chat System -->
+                    <section class="message-chat-container">
+                        <!-- Send Messages -->
+                        <div id="send-messages">
+                            <h2>Send Messages to Users</h2>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="messageContent" class="form-label">Message Content</label>
+                                    <textarea class="form-control" id="messageContent" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary send-btn">Send Message</button>
+                            </form>
+                        </div>
+
+                        <!-- Worker Chat System -->
+                        <div id="chat-system">
+                            <h2>Worker Chat System</h2>
+                            <div class="chat-box">
+                                <div class="message">Welcome to the real-time chat!</div>
+                                <div class="message">How can I assist you today?</div>
+                            </div>
+                            <textarea class="chat-input" placeholder="Type a message..."></textarea>
+                            <button class="btn btn-primary send-btn">Send</button>
                         </div>
                     </section>
                 </div>
             </main>
         </div>
     </div>
+
+    <!-- Bootstrap JS (Optional, for collapsing behavior) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
