@@ -1,9 +1,13 @@
+https://docs.google.com/document/d/1tXt-Y3nGd6VWH-eW7FfsJUWy5fR1PvfuKTZuaysi5WM/edit?usp=sharing
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Document</title>
     <link rel="stylesheet" href="styles.css">
         <!-- Bootstrap 5 CDN -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -26,47 +30,43 @@
       src="https://kit.fontawesome.com/64d58efce2.js"
       crossorigin="anonymous"
     ></script>
-
-</head>
-
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container"> <!-- Use container to limit width -->
-          <!-- Project Name -->
-          <a class="navbar-brand" href="#">Project Name</a>
-          
-          <!-- Mobile Toggle Button -->
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          
-          <!-- Navigation Links -->
-          <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ms-auto"> <!-- Push links to the right -->
-                  <li class="nav-item">
-                      <a class="nav-link" href="index.html">Home</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="about.html">About</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="contact.html">Contact</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link active" href="register.html">Sign Up</a>
-                  </li>
-              </ul>
-          </div>
-      </div>
-  </nav>  
-
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container"> <!-- Use container to limit width -->
+            <!-- Project Name -->
+            <a class="navbar-brand" href="#">Project Name</a>
+            
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto"> <!-- Push links to the right -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="register.html">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>  
   <!-- Div containing the entire page -->
-  <div class="container card my-3">
+  <div class="container bg-light my-4 py-1" style="border-radius: 10px;">
 
     <!-- Header for page -->
-    <div class="jumbotron">
+    <div class="jumbotron bg-light" style="border-top-right-radius: 10px; border-top-left-radius: 10px;">
       <div class="row">
         <div class="col-md-12">
           <img src="assets/images/gothamcity.png" alt="Gotham City" class="cityPic">
@@ -75,7 +75,6 @@
       <div class="row">
         <div class="col-md-12">
           <h1 class="text-center"><strong>TrainPlanner</strong></h1>
-          <link rel="stylesheet" href="styles.css">
         </div>
       </div>
       <div class="row">
@@ -86,12 +85,13 @@
       <!-- New row for the button -->
       <div class="row">
         <div class="col-md-12 text-center">
-          <a href="auth.php" class="btn btn-warning mb-3" style="background-color: rgb(0, 140, 255); color: white; font-weight: bold; margin-top: 15px;">
+          <a href="auth.php" class="btn btn-warning mb-3" style="background-color: orange; border-color: orange; color: white; font-weight: bold; margin-top: 15px;">
             Go to Authentication
           </a>
         </div>
       </div>
     </div>
+
     <!-- Contains both tables on page -->
     <div class="row">
 
@@ -101,13 +101,13 @@
         <div class="panel panel-primary">
 
           <!-- Current train table header -->
-          <div class="panel-heading" style="background-color: rgb(0, 140, 255);">
+          <div class="panel-heading">
             <h3 class="panel-title"><strong>Current Train Schedule</strong></h3>
           </div>
 
           <!-- Current train table content -->
-          <div class="panel-heading" style = "background-color: white;">
-            <table class="table table-hover mt-3 table-bordered" id="train-table">
+          <div class="panel-body mt-3 table-bordered">
+            <table class="table table-hover" id="train-table">
               <thead>
                 <tr>
                   <th>Train Name</th>
@@ -128,12 +128,13 @@
         <div class="panel panel-primary">
 
           <!-- Add a new train table header -->
-          <div class="panel-heading rounded" style="background-color: rgb(0, 140, 255);">
-            <h3 class="panel-title" > <strong>Add a Train</strong></h3>
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Add a Train</strong></h3>
           </div>
 
           <!-- Add a new train table content -->
           <div class="panel-body">
+
             <!-- Form that takes the user input for new trains -->
             <form>
               <div class="form-group">
@@ -152,7 +153,7 @@
                 <label>Frequency (minutes)</label>
                 <input class="form-control" id="frequency-input" type="text">
               </div>
-              <button class="btn my-3" id="add-train-btn" type="submit" style="background-color: rgb(0, 140, 255);">Submit</button>
+              <button class="btn mt-3" id="add-train-btn" type="submit">Submit</button>
             </form>
 
           </div>
@@ -167,10 +168,8 @@
 
   <!-- Link to the external JavaScript -->
   <script type="text/javascript" src="assets/app.js"></script>
-  <style>
-     body{
-        background-color: #f8f9fa;
-     }
-  </style>
-  </body>
+
+</body>
+
+
 </html>

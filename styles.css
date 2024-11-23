@@ -6,7 +6,7 @@ body{
 nav{
     background-color: white;
     color: black;
-    justify-content: center;
+    justify-content: flex-end;
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     background-color: rgb(221, 221, 221);
@@ -24,5 +24,6 @@ ul{
 }
 .jumbotron {
     border: 12px solid rgb(0, 140, 255);
-    border-radius: 15px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
