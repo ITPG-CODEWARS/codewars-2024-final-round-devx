@@ -32,4 +32,5 @@ To get started with TrainPlanner, follow these steps:
     cd TrainPlanner
     ```
 3. Set up your server environment to run PHP.
-4. Open the project in your web browser.
+4. You need to have installed XAMMP
+5. Open the project in your web browser.
