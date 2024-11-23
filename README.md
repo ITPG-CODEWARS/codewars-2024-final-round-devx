@@ -1,36 +1,38 @@
-## Technologies Used
+# TrainPlanner
 
-TrainPlanner is built using the following technologies:
+## Използвани технологии
 
-- **PHP**: For server-side scripting and backend logic.
-- **HTML**: For structuring the web pages.
-- **CSS**: For styling the web pages.
-- **Bootstrap**: For responsive design and pre-built components.
-  **Javascript**: We have integrated the libraries moment.js and firebase
+TrainPlanner е създаден с помощта на следните технологии:
 
-## Project Overview
+- **PHP**: За сървърно програмиране и бекенд логика.
+- **HTML**: За структуриране на уеб страниците.
+- **CSS**: За стилизиране на уеб страниците.
+- **Bootstrap**: За респонсив дизайн и готови компоненти.
+- **JavaScript**: Интегрирани са библиотеките `moment.js` и `Firebase`.
 
-TrainPlanner is a web application designed to help users plan their train journeys efficiently. It provides an intuitive interface for searching train schedules, booking tickets, and managing travel itineraries.
+## Преглед на проекта
 
-## Features
+TrainPlanner е уеб приложение, създадено да помага на потребителите да планират своите пътувания с влак ефективно. То предоставя интуитивен интерфейс за търсене на разписания на влакове, резервация на билети и управление на пътуванията.
 
-- **Search Train Schedules**: Easily search for train schedules based on departure and arrival locations.
-- **Book Tickets**: Securely book train tickets online.
-- **Manage Itineraries**: Keep track of your travel plans and manage your bookings.
-- **Responsive Design**: Accessible on various devices, thanks to Bootstrap.
+## Функционалности
 
-## Getting Started
+- **Търсене на разписания на влакове**: Лесно търсене на разписания на влакове по начална и крайна дестинация.
+- **Резервиране на билети**: Сигурно резервиране на билети за влак онлайн.
+- **Управление на пътувания**: Проследяване на плановете за пътуване и управление на резервациите.
+- **Респонсив дизайн**: Достъпно на различни устройства, благодарение на Bootstrap.
 
-To get started with TrainPlanner, follow these steps:
+## Начало на работа
 
-1. Clone the repository:
+За да започнете работа с TrainPlanner, следвайте тези стъпки:
+
+1. Клонирайте хранилището:
     ```bash
     git clone https://github.com/yourusername/TrainPlanner.git
     ```
-2. Navigate to the project directory:
+2. Отидете до директорията на проекта:
     ```bash
     cd TrainPlanner
     ```
-3. Set up your server environment to run PHP.
-4. You need to have installed XAMMP
-5. Open the project in your web browser.
+3. Настройте сървърната среда за работа с PHP.
+4. Уверете се, че имате инсталиран XAMPP.
+5. Отворете проекта в уеб браузъра си.
