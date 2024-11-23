@@ -186,7 +186,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reserve_ticket"])) {
                     <th style="color: white;">До</th>
                     <th style="color: white;">Час на пристигане</th>
                     <th style="color: white;">Час на тръгване</th>
-                    <th style="color: white;">Цена на билет</th>
+                    <th style="color: white;">Цена на билет (лв.)</th>
                     <th style="color: white;">Резервирай билет</th>
                 </tr>
             </thead>
