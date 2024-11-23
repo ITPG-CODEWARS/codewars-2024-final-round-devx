@@ -27,10 +27,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["register"])) {
         $stmt->bind_param("sss", $username, $email, $password);
 
         if ($stmt->execute()) {
-            echo "<script>alert('Registration successful! Please sign in.');</script>";
+            // Set session for the user ID and username, then redirect
+            $_SESSION["user_id"] = $stmt->insert_id;  // Set user ID for session
+            $_SESSION["username"] = $username;
+            session_write_close();  // Ensure session is saved
+            header("Location: dashboard.php");
+            exit();
         } else {
             echo "<script>alert('Registration failed. Please try again.');</script>";
         }
+    }
+    $stmt->close();
+}
+
+// Sign-In handling
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["register"])) {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    // Check if the user exists
+    $query = "SELECT * FROM users WHERE username = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+        // Verify password
+        if (password_verify($password, $user['password'])) {
+            // Set session for user ID and username, then redirect
+            $_SESSION["user_id"] = $user['id'];  // Assuming 'id' is the primary key in users table
+            $_SESSION["username"] = $username;
+            session_write_close();  // Ensure session is saved
+            header("Location: dashboard.php");
+            exit();
+        } else {
+            echo "<script>alert('Invalid username or password. Please try again.');</script>";
+        }
+    } else {
+        echo "<script>alert('Invalid username or password. Please try again.');</script>";
     }
     $stmt->close();
 }
