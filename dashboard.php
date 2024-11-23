@@ -96,10 +96,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reserve_ticket"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Табло</title>
     <link rel="stylesheet" href="assets/dashboard.css">
     <style>
-        /* Modal styling */
+        /* Стил за модалния прозорец */
         .modal {
             display: none;
             position: fixed;
@@ -136,17 +136,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reserve_ticket"])) {
 <body>
     <h1>Приятно пътуване, <?php echo htmlspecialchars($username); ?>!</h1>
 
-    <!-- Train schedule table -->
+    <!-- Таблица с разписания на влакове -->
     <table border="1" cellpadding="10" cellspacing="0">
         <thead>
             <tr>
-                <th>Train Number</th>
-                <th>From</th>
-                <th>Destination</th>
-                <th>Arrival Time</th>
-                <th>Start Time</th>
-                <th>Ticket Price</th>
-                <th>Reserve Ticket</th>
+                <th>Номер на влака</th>
+                <th>От</th>
+                <th>До</th>
+                <th>Час на пристигане</th>
+                <th>Час на тръгване</th>
+                <th>Цена на билет</th>
+                <th>Резервирай билет</th>
             </tr>
         </thead>
         <tbody>
@@ -164,49 +164,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reserve_ticket"])) {
                     echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='7'>No train schedules available.</td></tr>";
+                echo "<tr><td colspan='7'>Няма налични разписания на влакове.</td></tr>";
             }
             ?>
         </tbody>
     </table>
 
-    <!-- Admin-only section for adding new train schedules -->
+    <!-- Админ панел за добавяне на ново разписание на влакове -->
     <?php if ($is_admin == 1): ?>
-        <h2>Admin Panel: Add New Train Schedule</h2>
+        <h2>Админ панел: Добавяне на ново разписание на влак</h2>
         <form action="" method="POST">
-            <label for="train_number">Train Number:</label>
+            <label for="train_number">Номер на влака:</label>
             <input type="text" id="train_number" name="train_number" required><br>
 
-            <label for="from">From:</label>
+            <label for="from">От:</label>
             <input type="text" id="from" name="from" required><br>
 
-            <label for="destination">Destination:</label>
+            <label for="destination">До:</label>
             <input type="text" id="destination" name="destination" required><br>
 
-            <label for="arrival_time">Arrival Time:</label>
-            <input type="text" id="arrival_time" name="arrival_time" placeholder="HH:MM" required><br>
+            <label for="arrival_time">Час на пристигане:</label>
+            <input type="text" id="arrival_time" name="arrival_time" placeholder="ЧЧ:ММ" required><br>
 
-            <label for="start_time">Start Time:</label>
-            <input type="text" id="start_time" name="start_time" placeholder="HH:MM" required><br>
+            <label for="start_time">Час на тръгване:</label>
+            <input type="text" id="start_time" name="start_time" placeholder="ЧЧ:ММ" required><br>
 
-            <label for="ticket_price">Ticket Price:</label>
+            <label for="ticket_price">Цена на билет:</label>
             <input type="number" id="ticket_price" name="ticket_price" required><br>
 
-            <input type="submit" name="create_schedule" value="Add Schedule">
+            <input type="submit" name="create_schedule" value="Добави разписание">
         </form>
     <?php endif; ?>
 
-    <!-- Modal for ticket reservation -->
+    <!-- Модален прозорец за резервиране на билет -->
     <div id="ticketModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>Резервиране на билет</h2>
             <form action="" method="POST">
                 <input type="hidden" id="modal_train_number" name="train_number">
-                <label for="seat_number">Seat Number:</label>
+                <label for="seat_number">Номер на седалка:</label>
                 <input type="number" id="seat_number" name="seat_number" min="1" max="100" required><br>
                 <p>Местата са общо 100, изберете някое от тях.</p>
-                <input type="submit" name="reserve_ticket" value="Reserve Ticket">
+                <input type="submit" name="reserve_ticket" value="Резервирай билет">
             </form>
         </div>
     </div>
@@ -221,7 +221,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reserve_ticket"])) {
             document.getElementById("ticketModal").style.display = "none";
         }
 
-        // Display PHP messages in JavaScript alert
+        // Показване на съобщения от PHP в JavaScript alert
         <?php if (!empty($error_message)): ?>
             alert("<?php echo addslashes($error_message); ?>");
         <?php endif; ?>
@@ -230,6 +230,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reserve_ticket"])) {
             alert("<?php echo addslashes($success_message); ?>");
         <?php endif; ?>
     </script>
-
 </body>
 </html>
